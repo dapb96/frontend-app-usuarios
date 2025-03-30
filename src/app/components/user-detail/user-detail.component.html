@@ -1,0 +1,63 @@
+<h2>Detalle del Usuario</h2>
+
+<div *ngIf="user">
+  <div class="tabs">
+    <button [class.active]="activeTab === 'personal'" (click)="setActiveTab('personal')">Datos Personales</button>
+    <button [class.active]="activeTab === 'direccion'" (click)="setActiveTab('direccion')">Dirección</button>
+    <button *ngIf="demandante" [class.active]="activeTab === 'estudios'" (click)="setActiveTab('estudios')">Estudios</button>
+    <button *ngIf="empleado" [class.active]="activeTab === 'experiencia'" (click)="setActiveTab('experiencia')">Experiencia Laboral</button>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="activeTab === 'personal'">
+      <h3>Datos Personales</h3>
+      <p><strong>NIF/Pasaporte:</strong> {{ user?.datosPersonales?.nifPasaporte }}</p>
+      <p><strong>Nombre:</strong> {{ user?.datosPersonales?.nombre }}</p>
+      <p><strong>Primer Apellido:</strong> {{ user?.datosPersonales?.primerApellido }}</p>
+      <p><strong>Segundo Apellido:</strong> {{ user?.datosPersonales?.segundoApellido || '-' }}</p>
+      <p><strong>Género:</strong> {{ user?.datosPersonales?.genero || '-' }}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {{ user.datosPersonales?.fechaNacimiento | date }}</p>
+    </div>
+
+    <div *ngIf="activeTab === 'direccion'">
+      <h3>Dirección</h3>
+      <p><strong>Calle:</strong> {{ user?.direccion?.calle }}</p>
+      <p><strong>Número:</strong> {{ user?.direccion?.numero || '-' }}</p>
+      <p><strong>Puerta:</strong> {{ user?.direccion?.puerta || '-' }}</p>
+      <p><strong>Código Postal:</strong> {{ user?.direccion?.codigoPostal }}</p>
+      <p><strong>Ciudad:</strong> {{ user?.direccion?.ciudad }}</p>
+    </div>
+
+    <div *ngIf="activeTab === 'estudios' && demandante">
+      <h3>Estudios</h3>
+      <div *ngFor="let estudio of demandante.estudios; let i = index">
+        <h4>Estudio {{ i + 1 }}</h4>
+        <p><strong>Institución:</strong> {{ estudio.nombreInstitucion }}</p>
+        <p><strong>Titulación:</strong> {{ estudio.titulacion }}</p>
+        <p><strong>Fecha:</strong> {{ estudio.fecha | date }}</p>
+      </div>
+      <div *ngIf="demandante.estudios.length === 0">
+        <p>No se han registrado estudios.</p>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'experiencia' && empleado">
+      <h3>Experiencia Laboral</h3>
+      <div *ngFor="let experiencia of empleado.experienciaLaboral; let i = index">
+        <h4>Experiencia {{ i + 1 }}</h4>
+        <p><strong>Empresa:</strong> {{ experiencia.nombreEmpresa }}</p>
+        <p><strong>Puesto:</strong> {{ experiencia.puestoTrabajo }}</p>
+        <p><strong>Fecha:</strong> {{ experiencia.fecha | date }}</p>
+      </div>
+      <div *ngIf="empleado.experienciaLaboral.length === 0">
+        <p>No se ha registrado experiencia laboral.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" (click)="goBack()">Salir</button>
+
+<div *ngIf="!user">
+  <p>Usuario no encontrado.</p>
+</div>

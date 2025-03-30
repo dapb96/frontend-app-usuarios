@@ -1,0 +1,35 @@
+<h2>Lista de Usuarios</h2>
+
+<button (click)="onNewUser()">Nuevo usuario</button>
+
+<div>
+  <label for="tipoFiltro">Filtrar por tipo:</label>
+  <select id="tipoFiltro" [(ngModel)]="tipoFiltro" (ngModelChange)="filterUsers()">
+    <option value="todos">Todos</option>
+    <option value="demandante">Demandante</option>
+    <option value="empleado">Empleado</option>
+  </select>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Primer Apellido</th>
+      <th>Tipo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of filteredUsers">
+      <td>{{ user.datosPersonales.nombre }}</td>
+      <td>{{ user.datosPersonales.primerApellido }}</td>
+      <td>{{ user.tipo }}</td>
+      <td>
+        <button (click)="onView(user)">Ver</button>
+        <button (click)="onEdit(user)">Editar</button>
+        <button (click)="onDelete(user)">Borrar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

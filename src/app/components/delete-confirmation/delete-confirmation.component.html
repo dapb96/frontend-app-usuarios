@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmar Borrado</h1>
+<div mat-dialog-content>
+  <p>¿Está seguro de que desea borrar el usuario <strong>{{ data.userName }}</strong>?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button color="warn" (click)="onYesClick()" cdkFocusInitial>Borrar</button>
+</div>

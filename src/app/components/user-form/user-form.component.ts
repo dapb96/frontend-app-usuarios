@@ -14,8 +14,8 @@ import { Demandante, Empleado } from '../../models/user-model';
 })
 export class UserFormComponent implements OnInit {
   userId: string | null = null;
-  isEditMode = false;
-  userForm: FormGroup;
+  isEditMode: boolean = false;
+  userForm!: FormGroup;
   userType: 'demandante' | 'empleado' = 'demandante'; // Default type
 
   constructor(
@@ -24,6 +24,10 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {
+    this.actualizarFormGroup();
+  }
+
+  actualizarFormGroup(): void {
     this.userForm = this.fb.group({
       tipo: ['demandante', Validators.required],
       datosPersonales: this.fb.group({
@@ -49,6 +53,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userId = params['id'];
+      console.log('Valor del parámetro id:', this.userId);
       this.isEditMode = this.userId !== 'new';
       if (this.isEditMode && this.userId) {
         this.loadUserToEdit(this.userId);

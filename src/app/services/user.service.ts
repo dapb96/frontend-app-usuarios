@@ -90,6 +90,8 @@ export class UserService {
     const currentUsers = this.users;
     const index = currentUsers.findIndex(user => user.datosPersonales.nifPasaporte !== nifPasaporte);
 
+    console.log({index})
+
     if (index >= 0 && index < this.users.length) {
       this.users.splice(index, 1);
     } else {

@@ -11,7 +11,7 @@ export const routes: Routes = [
         path: 'user/:id/view', component: UserDetailComponent
     },
     {
-        path: 'user/new', component: UserFormComponent
+        path: 'user/:id', component: UserFormComponent
     },
     {
         path: 'user/:id/edit', component: UserFormComponent
